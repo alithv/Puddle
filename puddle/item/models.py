@@ -15,6 +15,9 @@ class Category(models.Model):
     def __str__(self) :
         return self.name
     
+    # When you use "CASCADE" in a Django model, it means that if the object that a foreign key points to is deleted, 
+    # all the objects that reference it will also be deleted.
+
 class Item(models.Model):
     category = models. ForeignKey (Category, related_name='items', on_delete= models. CASCADE)
     name = models.CharField(max_length=255)
