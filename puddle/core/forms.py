@@ -8,15 +8,15 @@ class LoginForm(AuthenticationForm):
         'class': 'w-full py-4 px-6 rounded-xl'
         }))
      
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
-        'placeholder': 'Set a password',
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Your password',
         'class': 'w-full py-4 px-6 rounded-xl'
         }))
     
 class SignupForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username' , 'email' , 'password1' , 'password2') 
+        fields = ('username' , 'email' , 'password', 'password1' , 'password2') 
     
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your username',
