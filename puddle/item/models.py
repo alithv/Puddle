@@ -19,7 +19,7 @@ class Category(models.Model):
     # all the objects that reference it will also be deleted.
 
 class Item(models.Model):
-    category = models. ForeignKey (Category, related_name='items', on_delete= models. CASCADE)
+    category = models. ForeignKey (Category, related_name='items', on_delete= models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     price = models.FloatField()

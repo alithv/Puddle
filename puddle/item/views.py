@@ -1,14 +1,28 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render , get_object_or_404 , redirect
-from .models import Item
+from django.db.models import Q 
+from .models import Item , Category 
 from .forms import NewItemForm , EditItemForm
 # Create your views here.
 
-def items(request) : 
-     items = Item.objects.filter(is_sold = False)
-     return render(request , 'item/items.html' ,  {
-      'items' : items   
-     })
+def items(request):
+    query = request.GET.get('query', '')
+    category_id = request.GET.get('category', None)
+    categories = Category.objects.all()
+    items = Item.objects.filter(is_sold=False)
+
+    if category_id:
+        items = items.filter(category_id=category_id)
+
+    if query:
+        items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
+
+    return render(request, 'item/items.html', { 
+        'items': items,
+        'query': query,
+        'categories': categories,
+        'category_id': int(category_id) if category_id else None
+    })
 
 def detail(request,  pk):
     item = get_object_or_404(Item , pk = pk)
