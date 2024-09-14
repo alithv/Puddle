@@ -16,7 +16,7 @@ def new_conversation(request, item_pk):
     conversation = Conversation.objects.filter(item=item).filter(members__in=[request.user.id])
 
     if conversation:
-        pass  # If conversation exists, redirect to item detail
+       return redirect( 'conversation:detail', pk=conversation.first().id)
 
     if request.method == 'POST':
         form = ConversationMessageForm(request.POST)
